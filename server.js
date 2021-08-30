@@ -17,3 +17,7 @@ let corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// parse request application/json x-www-form-urlencode
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
