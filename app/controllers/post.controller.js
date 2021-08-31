@@ -19,6 +19,7 @@ exports.create = (req, res) => {
     published: req.body.published ? req.body.published : false,
   };
 
+  // Save Post in the database
   Post.create(post)
     .then((data) => {
       res.send(data);
