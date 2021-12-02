@@ -29,6 +29,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Sync database
 db.sequelize.sync();
+// !drop db all
+// db.sequelize
+//   .sync({ force: true })
+//   .then((result) => {
+//     console.log("drop and re-sync db");
+//   })
+//   .catch((err) => {
+//     console.log("not drop and re-sync db");
+//   });
 
 // simple route
 app.get("/", (req, res) => {
@@ -39,6 +48,9 @@ app.get("/", (req, res) => {
 
 // Posts Routes
 require("./app/routes/post.routes")(app);
+
+// User Routes
+require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

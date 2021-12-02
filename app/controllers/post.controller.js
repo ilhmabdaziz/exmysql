@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Post
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.title || !req.body.description) {
     res.status(400).send({
       message: "Content can not be empty",
     });
@@ -22,7 +22,10 @@ exports.create = (req, res) => {
   // Save Post in the database
   Post.create(post)
     .then((data) => {
-      res.send(data);
+      res.status(200).json({
+        success: true,
+        data: data,
+      });
     })
     .catch((err) => {
       res.satatus(500).send({
@@ -96,11 +99,13 @@ exports.delete = (req, res) => {
   })
     .then((result) => {
       if (result == 1) {
-        res.send({
+        res.json({
+          success: true,
           message: "Post was deleted successfully",
         });
       } else {
-        res.send({
+        res.status(400).json({
+          success: false,
           message: `Cannot delete post with id=${id}.`,
         });
       }
